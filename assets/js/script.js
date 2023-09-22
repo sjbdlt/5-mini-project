@@ -21,31 +21,23 @@ function getprojects(){
     for (var i = 0; i < project.length; i+= 1){
 
         var projDate = dayjs(project[i].projectdate);
-        // get date/time for start of today
         var today = dayjs().startOf('day');
     
-        // Create row and columns for project
         var rowID = $('<tr>');
         var nameLbl = $('<td>').text(project[i].projectname);
         var typeLbl = $('<td>').text(project[i].projectscope);
         var dateLbl = $('<td>').text(projDate.format('MM/DD/YYYY'));
     
-        // Save the index of the project as a data-* attribute on the button. This
-        // will be used when removing the project from the array.
+      
         var deletebtn = $(
-          '<td><button class="btn btn-sm btn-delete-project" data-index="' +
-            i +
-            '">Delete</button></td>'
-        );
+          '<td><button class="btn btn-sm btn-delete-project" data-index="' + i + '">Delete</button></td>' );
     
-        // add class to row by comparing project date to today's date
         if (projDate.isBefore(today)) {
             rowID.addClass('project-late');
         } else if (projDate.isSame(today)) {
             rowID.addClass('project-today');
         }
     
-        // append elements to DOM to display them
         rowID.append(nameLbl, typeLbl, dateLbl, deletebtn);
         projDisplay.append(rowID);
 
@@ -85,7 +77,6 @@ function saveproject(event) {
 }
 
 
-// Removes a project from local storage and prints the project data
 function DeleteProject() {
     var projectIndex = parseInt($(this).attr('data-index'));
     
